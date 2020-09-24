@@ -1,0 +1,84 @@
+/* ヘッダー部分 */
+.header {
+  width: 100vw;
+  height: 15vh;
+  display: flex;
+}
+
+.header-left {
+  width: 250px;
+  height: 15vh;
+  background-color: antiquewhite;
+}
+
+.app_name {
+  font-size: 20px;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  margin: 20px;
+}
+
+.header-right {
+  width: calc(100vw - 250px);
+  background-color: lightgray;
+}
+
+.lists {
+  font-size: 18px;
+  height: 15vh;
+  padding: 2vh 2vw;
+  list-style: none;
+  min-width: 200px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.login {
+  text-decoration: none;
+  line-height: 5vh;
+  margin-right: 3vw;
+}
+
+.sign-up {
+  text-decoration: none;
+  line-height: 5vh;
+}
+
+// メイン
+.main {
+  width: 100vw;
+  height: 85vh;
+  display: flex;
+}
+
+// 入力フォーム部分
+.main-left {
+  width: 30vw;
+  height: calc(100vh - 15vh);
+}
+
+.input-form {
+  width: 30vw;
+  height: 40vh;
+  background-color: darkkhaki;
+}
+
+.result {
+  width: 30vw;
+  height: 45vh;
+}
+
+.results {
+  height: 40vh;
+  border: solid 1px black;
+  margin: 0 10px;
+}
+
+// 地図部分
+.main-right {
+  width: calc(100vw - 250px);
+  height: calc(100vh - 15vh);
+  background-color: dimgrey;
+}

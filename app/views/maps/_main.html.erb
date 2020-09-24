@@ -1,0 +1,33 @@
+<div class="main-left">
+  <%# 検索入力フォーム %>
+  <div class="input-form">
+    <div>
+      検索場所：
+      <input type="text" id="addressInput" value="近江町市場" style="width: 200px">
+    </div>
+    <div>
+      キーワード：
+      <input type="text" id="keywordInput" value="寿司" style="width: 200px">
+    </div>
+    <div>
+      距離：
+      <input type="text" id="keywordInput" value="100" style="width: 200px">
+    </div>
+    <div>
+      <input type="button" value="お店情報取得" onclick="getPlaces();">
+    </div>
+  </div>
+  <%# 結果部分 %>
+  <div class="result">
+    <div>・結果</div>
+    <div class="results" id="results">
+      <%# 結果表示部分 %>
+    </div>
+  </div>
+</div>
+<%# 地図表示 %>
+<div class="main-right">
+  <div class="map" id='map'>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2Vngw1pxY88Z23rk1Sh9mehYv69ucFNY&callback=initMap" ></script>
+  </div>
+</div>
