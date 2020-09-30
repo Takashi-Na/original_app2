@@ -3,7 +3,7 @@
   <div class="input-form">
     <div>
       検索場所　：
-      <input type="text" id="addressInput" value="近江町市場" placeholder="例：東京駅" style="width: 200px">
+      <input type="text" id="addressInput" value="東京駅" placeholder="例：東京駅" style="width: 200px">
     </div>
     <div>
       キーワード：
@@ -33,26 +33,22 @@
   </div>
 </div>
 <%# 地図表示 %>
-<div class="main-right">
-  <div class="map" id='mapArea'>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2Vngw1pxY88Z23rk1Sh9mehYv69ucFNY&libraries=places&callback=initMap"></script>
-  </div>
+<div class="main-right" id="mapArea">
 </div>
 
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2Vngw1pxY88Z23rk1Sh9mehYv69ucFNY&libraries=places&callback=initMap" async defer></script>
 <script type="text/javascript">
 var placesList;
 
-/*
- 地図の初期表示
-*/
-function initMap() {
-  geocoder = new google.maps.Geocoder()
-
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: { lat: 35.6809591, lng: 139.7673068 },
-    zoom: 15
-  });
-}
+// /*
+//  地図の初期表示
+// */
+// function initMap() {
+//   new google.maps.Map(document.getElementById("mapArea"), {
+//     zoom: 15,
+//     center: { lat: 35.6809591, lng: 139.7673068 }
+//   });
+// }
 
 /*
  お店情報取得

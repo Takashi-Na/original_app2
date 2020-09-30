@@ -6,7 +6,7 @@
 }
 
 .header-left {
-  width: 250px;
+  width: 30vw;
   height: 15vh;
   background-color: antiquewhite;
 }
@@ -20,7 +20,7 @@
 }
 
 .header-right {
-  width: calc(100vw - 250px);
+  width: calc(100vw - 30vw);
   background-color: lightgray;
 }
 
@@ -61,17 +61,17 @@
 
 .input-form {
   width: 30vw;
-  height: 40vh;
+  height: 30vh;
   background-color: darkkhaki;
 }
 
 .result {
   width: 30vw;
-  height: 45vh;
+  height: 55vh;
 }
 
 .results {
-  height: 40vh;
+  height: 50vh;
   border: solid 1px black;
   margin: 0 10px;
   overflow-y: scroll;
@@ -80,7 +80,7 @@
 
 // 地図部分
 .main-right {
-  width: calc(100vw - 250px);
+  width: calc(100vw - 30vh);
   height: calc(100vh - 15vh);
   background-color: dimgrey;
 }
