@@ -21,7 +21,7 @@
       <select>
     </div>
     <div>
-      <input type="button" value="お店情報取得" onclick="getPlaces();">
+      <input type="button" value="お店情報取得" id="getPlaces" onclick="getPlaces();">
     </div>
   </div>
   <%# 結果部分 %>
@@ -38,17 +38,7 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2Vngw1pxY88Z23rk1Sh9mehYv69ucFNY&libraries=places&callback=initMap" async defer></script>
 <script type="text/javascript">
-var placesList;
-
-// /*
-//  地図の初期表示
-// */
-// function initMap() {
-//   new google.maps.Map(document.getElementById("mapArea"), {
-//     zoom: 15,
-//     center: { lat: 35.6809591, lng: 139.7673068 }
-//   });
-// }
+let placesList;
 
 /*
  お店情報取得
