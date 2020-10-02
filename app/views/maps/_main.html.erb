@@ -2,19 +2,26 @@
   <%# 検索入力フォーム %>
   <div class="input-form">
     <div>
-      検索場所：
-      <input type="text" id="addressInput" value="近江町市場" style="width: 200px">
+      検索場所　：
+      <input type="text" id="addressInput" value="東京駅" placeholder="例：東京駅" style="width: 200px">
     </div>
     <div>
       キーワード：
-      <input type="text" id="keywordInput" value="寿司" style="width: 200px">
+      <input type="text" id="keywordInput" value="寿司" placeholder="例：寿司" style="width: 200px">
     </div>
     <div>
-      距離：
-      <input type="text" id="#" value="100" style="width: 200px">
+      距離　　　：
+      <select id="radiusInput">
+        <option value="200" selected>200 m</option>
+        <option value="500">500 m</option>
+        <option value="800">800 m</option>
+        <option value="1000">1 km</option>
+        <option value="1500">1.5 km</option>
+        <option value="2000">2 km</option>
+      <select>
     </div>
     <div>
-      <input type="button" value="お店情報取得" onclick="getPlaces();">
+      <input type="button" value="お店情報取得" id="getPlaces" onclick="getPlaces();">
     </div>
   </div>
   <%# 結果部分 %>
@@ -26,14 +33,12 @@
   </div>
 </div>
 <%# 地図表示 %>
-<div class="main-right">
-  <div class="map" id='map'>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2Vngw1pxY88Z23rk1Sh9mehYv69ucFNY&libraries=places" ></script>
-  </div>
+<div class="main-right" id="mapArea">
 </div>
 
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2Vngw1pxY88Z23rk1Sh9mehYv69ucFNY&libraries=places&callback=initMap" async defer></script>
 <script type="text/javascript">
-var placesList;
+let placesList;
 
 /*
  お店情報取得
@@ -70,7 +75,7 @@ function getPlaces(){
 
 /*
  位置情報を使って周辺検索
-  latLng : 位置座標（google.maps.LatLng）
+  latLng : 位置座標インスタンス（google.maps.LatLng）
 */
 function startNearbySearch(latLng){
   
@@ -79,7 +84,12 @@ function startNearbySearch(latLng){
   
   //Mapインスタンス生成
   var map = new google.maps.Map(
-    document.createElement("div")
+    document.getElementById("mapArea"),
+    {
+      zoom: 15,
+      center: latLng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
   );
   
   //PlacesServiceインスタンス生成
@@ -87,12 +97,15 @@ function startNearbySearch(latLng){
   
   //入力したKeywordを取得
   var keywordInput = document.getElementById("keywordInput").value;
+  //入力した検索範囲を取得
+  var obj = document.getElementById("radiusInput");
+  var radiusInput = Number(obj.options[obj.selectedIndex].value);
   
   //周辺検索
   service.nearbySearch(
     {
       location: latLng,
-      radius: 800,
+      radius: radiusInput,
       type: ['restaurant'],
       keyword: keywordInput,
       language: 'ja'
@@ -159,8 +172,16 @@ function displayResults(results, status, pagination) {
         //表示内容（評価＋名称）
         var content = "【" + rating + "】 " + place.name;
         
+        //クリック時にMapにマーカー表示するようにAタグを作成
         resultHTML += "<li>";
+        resultHTML += "<a href=\"javascript: void(0);\"";
+        resultHTML += " onclick=\"createMarker(";
+        resultHTML += "'" + place.name + "',";
+        resultHTML += "'" + place.vicinity + "',";
+        resultHTML += place.geometry.location.lat() + ",";
+        resultHTML += place.geometry.location.lng() + ")\">";
         resultHTML += content;
+        resultHTML += "</a>";
         resultHTML += "</li>";
       }
       
@@ -186,6 +207,51 @@ function displayResults(results, status, pagination) {
     } else if(status == google.maps.places.PlacesServiceStatus.UNKNOWN_ERROR) {
       results.innerHTML = "原因不明のエラーが発生しました。";
     }
+
   }
+}
+
+/*
+ マーカー表示
+  name : 名称
+  vicinity : 近辺住所
+  lat : 緯度
+  lng : 経度
+*/
+function createMarker(name, vicinity, lat, lng){
+  
+  //マーカー表示する位置のMap表示
+  var map = new google.maps.Map(document.getElementById("mapArea"), {
+    zoom: 15,
+    center: new google.maps.LatLng(lat, lng),
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  });
+  
+  //マーカー表示
+  var marker = new google.maps.Marker({
+    map: map,
+    position: new google.maps.LatLng(lat, lng)
+  });
+  
+  //情報窓の設定
+  var info = "<div style=\"min-width: 100px\">";
+  info += name + "<br />";
+  info += vicinity + "<br />";
+  info += "<a href=\"https://maps.google.co.jp/maps?q=" + encodeURIComponent(name + " " + vicinity) + "&z=15&iwloc=A\"";
+  info += " target=\"_blank\">⇒詳細表示</a><br />";
+  info += "<a href=\"https://www.google.com/maps/dir/?api=1&destination=" + lat + "," + lng + "\"";
+  info += " target=\"_blank\">⇒ここへ行く</a>";
+  info += "</div>";
+  
+  //情報窓の表示
+  var infoWindow = new google.maps.InfoWindow({
+    content: info
+  });
+  infoWindow.open(map, marker);
+  
+  //マーカーのクリック時にも情報窓を表示する
+  marker.addListener("click", function(){
+    infoWindow.open(map, marker);
+  });
 }
 </script>
