@@ -5,7 +5,7 @@
   場所と距離を指定し、GoogleMapの評価の高い順に表示をしてくれる
 
 * ## URL
-  デプロイしていない
+  https://sugutabe-app-28780.herokuapp.com/
 
 * ## テスト用アカウント
   未実装
