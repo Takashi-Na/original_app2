@@ -40,8 +40,7 @@
     </div>
     <%# 地図表示 %>
     <div class="main-right" id="mapArea">
-      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2Vngw1pxY88Z23rk1Sh9mehYv69ucFNY&libraries=places&callback=initMap" async defer></script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=<%=ENV['GOOGLE_MAPS_API']%>&libraries=places&callback=initMap" async defer></script>
     </div>
   </div>
 </div>
-
